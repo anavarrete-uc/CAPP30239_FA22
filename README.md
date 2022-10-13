@@ -1,3 +1,9 @@
 # CAPP30239_FA22
 
-week_01: Contains the assignments for the first week of classes
+## About
+This repository contains the datasets, learning materials, and completed assignments for CAPP 239. 
+
+## Contents
+week_01: Assignments for the first week of classes
+week_02: HTML and JS practice code and dataset for the final visualization. 
+week_03: HTML and JS practice code
