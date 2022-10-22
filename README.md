@@ -9,3 +9,5 @@ week_01: Assignments for the first week of classes
 week_02: HTML and JS practice code and dataset for the final visualization. 
 
 week_03: HTML and JS practice code 
+
+week_04: HTML and JS practice code and line chart homework
