@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Charts</title>
+</head>
+<body>
+    <div class = "container", id = 'p'>
+        <h1>Was the victim mentally ill?</h1>
+        <div id = "pie"></div>
+        For this set of charts, I decided to look at the correlation between 
+        the mental health state of the gunshot victim and other data points. 
+        In this simple pie chart, you see the overrepresentation of mentally ill 
+        victims. I chose this representation since this would be analyzing to portions 
+        that make up the whole of the dataset, out of that subset that had values for this 
+        data point. I first thought of using a bar chart to show the relatively close heights, to 
+        show this overrepresentation. However, since this would be at examining two parts of a whole and the 
+        difference between the two values is significant, I believe that the overrepresentation is most apparent in a pie chart. 
+        For this chart, additional data that would be useful would be the exact proportion of mentally ill individuals
+        relative to the general population, possibly broken down by ailment. Thus, this chart currently relies on what 
+        would be a reasonable assumption that the reader does not contest that this is a high proportion. 
+    </div> 
+    <div class =  "container">
+        <h1>Age distribution of mentally ill victims</h1>
+        <div id = "hist"></div>
+        This histogram tells the story of how younger people with mental illnesses are more likely to 
+        be victims of police violence than their older counterparts. I decided to go with a histogram to best show 
+        a distribution along one axis of interest. One way to interpret the takeaway may rely on 
+        the assumption that mentally ill people of all ages are in confrontations with police at the same rates. 
+        Regardless, another takeaway is the vast bulk of the victims in total being relatively young, 
+        when keeping in mind the overrepresentation of mentally ill victims from the previous graphic,
+        being young mentally ill individuals. Additional data that would be useful would be the rate of
+        police confrontations amongst mentally ill people of all ages. 
+    </div>
+    <div class = "container", id = 'h'>
+        <h1>Counts in Midwest</h1>
+        <div id = "barchart"></div>
+    </div>    
+    Finally, I wanted to see the disparity among states with similar populations, in terms of numbers and demographics.
+    For this case, I decided to go with six states of the Midwest: Ohio, Illinois, Wisconsin, Michigan, Minnesota, and Indiana.
+    A simple bar chart proved useful for this comparison since we only had data for one interval of time and could not get more
+    granular than the state level. 
+    Additional data that would be useful would be time series data as well as the size of the populations in urban, suburban, and rural 
+    communities. 
+</body>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="pie_chart.js"></script>
+<script src="bars.js"></script>
+<script src = "histogram.js"></script>
+</html>
