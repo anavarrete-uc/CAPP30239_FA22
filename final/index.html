@@ -79,6 +79,18 @@ function style(feature) { //using value of feature, return a color for choroplet
 
 L.geoJson(data, {style: style}).addTo(map);
 
+L.geoJson(data, {
+  onEachFeature: function(feature, layer) {
+    var label = L.marker(layer.getBounds().getCenter(), {
+      icon: L.divIcon({
+        className: 'label',
+        html: feature.properties.name,
+        iconSize: [100, 40]
+      })
+    }).addTo(map);
+  }
+});
+
 var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
