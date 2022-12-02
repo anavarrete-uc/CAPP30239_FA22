@@ -8,38 +8,109 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
     <style>
+      body {
+        background-color: grey;
+        background-image: url("https://www.gannett-cdn.com/presto/2020/11/18/PDTF/40f5ca57-d97b-4383-908d-bfcee9b376e3-shotspotter.jpg?width=1320&height=744&fit=crop&format=pjpg&auto=webp");
+        background-attachment: fixed;
+      }
+      .bigdiv {width: 85%; 
+        background-color: white; 
+        opacity: 95%; 
+        margin: auto;
+        border-radius: 25px;
+        padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;}
+      h1 {text-align: center;}
       #map {
         width: 800px;
         height: 580px;
       }
       .legend {
-    line-height: 18px;
-    color: #555;
-}
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
-}
+      line-height: 18px;
+      color: #555;
+      }
+      .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+      }
+      .center {
+      text-align: center;
+      }
     </style>
 
 </head>
 <body>
-    <h2>Percent Change in Weapons Offenses</h2>
+
+    <div id = "intro" class="bigdiv">
+      <h1>ShotSpotter Comes to Detroit</h1>
+      <p>In June 2022, Detroit City Council introduced for approval two contracts with the police surveillance firm 
+        ShotSpotter. ShotSpotter provides police departments with a network of microphones that are purported to identify gun shots 
+        among background noise and triangulate the location of said gunshots. One of the two contracts would be to extend the current 
+        deployment in precincts 8 and 9 of the Detroit Police Department, priced at $1.5 Million. The other would be to expand the 
+        coverage areas to precincts 4, 10, 11, and 12 at a price of $7.2 Million. 
+
+        <br>These contracts, and the technology itself, attracted the scrutiny of many local activists. Past deployments in other
+        <a href="https://www.daytondailynews.com/local/dayton-not-renewing-contract-with-shotspotter-program/PYYGLLNVRJGUHEAF4OSJJ7K4NA/">
+        cities</a> have revealed ShotSpotter's <a href="https://igchicago.org/2021/08/24/oig-finds-that-shotspotter-alerts-rarely-lead-
+        to-evidence-of-a-gun-related-crime-and-that-presence-of-the-technology-changes-police-behavior/">low accuracy and efficacy rate</a>. 
+        Furthermore, activists around the country have warned of its role as justification in <a href="https://www.vice.com/en/article/
+        5db8vk/police-are-using-gunshot-detection-tech-to-justify-stop-and-frisks">stop-and-frisk</a> practices, <a href="https://
+        www.southcoasttoday.com/story/news/crime/2012/01/11/shotspotter-recording-street-argument-raises/49773221007/">violations</a> of 4th 
+        amendment rights, and the <a href="https://www.pbs.org/newshour/nation/chicago-watchdog-harshly-criticizes-shotspotter-system">
+        death</a> and <a href="https://apnews.com/article/artificial-intelligence-algorithm-technology-police
+        -crime-7e3345485aa668c97606d4b54f9b6220">incarceration</a> of innocents. 
+      </p>
+    </div>
+    <div id = 'l' class="bigdiv">
+      <h1>Weapons Crimes per Precinct</h1>
+      <p>The Detroit Police Department, the office of the Mayor, and its allies in city council supported both extending the current contracts
+        as well as expanding in the city. Their justification came from their interpretation of the data coming out of the 
+        deployment in the 8th and 9th precincts. The current deployment had been started in March of 2021.
+        Indeed, precincts 8 and 9 had the most weapons violence right before the initial implementation, also holding the largest spikes in 
+        weapons violence and other weapon crimes in the city per the State of Michigan's Records Management System <a href="https://data.
+        detroitmi.gov/datasets/detroitmi::rms-crime-incidents/explore?location=42.352949%2C-83.099050%2C10.73">data</a>.
+        
+        <br> Their argument hinged 
+        on the deterrent effect of a higher possibility of capture after a weapon crime was committed. The 8th and 9th 
+        precincts were seen as low-hanging fruit in quickly reducing weapon crimes due to their abnormally high relative rates. While
+        all weapon crime across the city rose after the start of the pandemic, the spikes were highest in precincts 8 and 9. Furthermore, 
+        the elevated rates persisted in those precincts through 2020 and into 2021 and 2022. 
+      </p>
+      <figure>
+        <div id = "lines"></div>
+        <figcaption style="color: grey;">Trends in incidents of weapons crime, per Detroit Police Department precinct, between January 2019 and October 2022</figcaption>
+      </figure>
+  </div>
+  <div id = "map part" class="bigdiv">
+    <h1>Actual Change in Weapons Offenses</h1>
+    <p>If the premises of DPD Chief White and his supporters on city council held true, then the data would 
+      support the claim that the deployment of ShotSpotter microphones would cause a decrease in the incidents of 
+      weapons crimes in the city. In fact, they have made the <a href="https://www.detroitnews.com/story/news/local/detroit-city/2022/09/23/
+      chief-white-defends-shotspotter-system-at-detroit-police-town-hall/8067734001/">claim</a> that the deployment of ShotSpotter has led 
+      to a decrease in gun crime of 43%. Attempts by local activist groups to access the query logic and the dataset used
+      to back up that claim have been unsuccesful. An independent review, using the same dataset from the State of Michigan, 
+      allows for a breakdown of percentage changes in the total weapons crimes per precinct. A comparison of the total amount of weapons crimes in 
+      the year before March 2021, when ShotSpotter first came online, and the year since derives two important conclusions. 
+      While the majority of the City of Detroit's areas saw insignificant rises or falls 
+      in weapons crimes, only two precincts saw a rise in total gunshots. Among those with a rise was precinct 9. Precinct 8 saw a small drop of
+      around 8 percent. Furthermore, 4 precincts, 2, 10, 11, and 7 saw a sharper decline in gun violence than precinct 8, without ShotSpotter. 
+    </p>
     <div id="map"></div>
-    <div id="content"></div>
+    <div id="content">
+    </div>
     <script>
       const map = L.map('map', {
     center: [42.35, -83.0458],
     zoom: 11,
-    scrollWheelZoom: false
-});;
-      var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(map);
+    scrollWheelZoom: false});;
+      var tiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+	maxZoom: 16}).addTo(map);
 
       const data = {"type":"FeatureCollection", "features":[
       {"type":"Feature","id":"0","geometry":{"type":"Polygon","coordinates":[[[-83.1571356824725,42.4048084854203],[-83.1585999363856,42.4049942133121],[-83.1598306283249,42.4053325019878],[-83.158977228805,42.3852575504937],[-83.1554378665855,42.3851978335253],[-83.1538747979912,42.3849921413104],[-83.1522578304797,42.384600660717],[-83.1507756102609,42.3840698356742],[-83.1490238954569,42.3831873291073],[-83.147999816033,42.3823977074535],[-83.1472721806529,42.3815748978538],[-83.1465984441898,42.380294213073],[-83.1463828485216,42.3795111908575],[-83.1464816632029,42.3746602169802],[-83.1463558990631,42.3736382129997],[-83.1459247077267,42.3723573663473],[-83.1453767354034,42.3713154148295],[-83.1388100506765,42.368673957099],[-83.1381902131304,42.3555181091479],[-83.1303838533114,42.3446435382918],[-83.1268265247863,42.3444509923105],[-83.1081325837238,42.3447962467542],[-83.1105939676023,42.3483084390123],[-83.1108634621875,42.3552260207234],[-83.1108544790347,42.3558832177694],[-83.1106837991307,42.3563080687679],[-83.1092914104403,42.356971892703],[-83.1008562299224,42.3601050470176],[-83.0986463743235,42.3607754686456],[-83.0818029627463,42.3672071700424],[-83.0859801288174,42.373664758768],[-83.0863664043896,42.3740629439463],[-83.0902291601113,42.37972353683],[-83.0817400806764,42.382822379157],[-83.0889535524078,42.3935377533779],[-83.1025989615736,42.3885618008801],[-83.105913744972,42.393106519774],[-83.1071354537584,42.3957469498289],[-83.1133158629132,42.4046824554663],[-83.1154628364422,42.4037538058943],[-83.1172684501633,42.4028185092175],[-83.118867451369,42.4038068719544],[-83.1206550987844,42.4045431589068],[-83.1223798641299,42.4049942133121],[-83.1242842925323,42.4052263724036],[-83.1437328184334,42.4049013494349],[-83.1571356824725,42.4048084854203]]]},"properties":{"FID":1,"altmode":0,"assaults_pct_change":200,"base":0,"clamped":-1,"extruded":0,"folderpath":"2015 New Precincts Overlay/2015 Precincts","name":"10","oid_":0,"popupinfo":"\n\n\n\n\n\n\n\n\n\n","shape_area":0.00295751811,"shape_leng":0.26116884224,"snippet":" ","symbolid":0,"weapons_pct_change":-11.641791044776118}},
@@ -60,11 +131,11 @@ function getColor(d) { //Choose color for chloropleth based on value
       return d < -30 ? '#8c510a' :
             d < -20  ? '#bf812d' :
             d < -10  ? '#dfc27d' :
-            d < 0  ? '#f6e8c3' :
+            d <= 0  ? '#f6e8c3' :
             d < 10   ? '#c7eae5' :
             d < 20   ? '#80cdc1' :
             d < 30   ? '#35978f' :
-                      '#FFEDA0';
+                      '#01665e';
       }
 function style(feature) { //using value of feature, return a color for choropleth
     return {
@@ -78,16 +149,19 @@ function style(feature) { //using value of feature, return a color for choroplet
 }
 
 L.geoJson(data, {style: style}).addTo(map);
-
 L.geoJson(data, {
   onEachFeature: function(feature, layer) {
-    var label = L.marker(layer.getBounds().getCenter(), {
+    marker_coords = layer.getBounds().getCenter()
+    console.log(marker_coords)
+    var label = L.marker(marker_coords, 
+    {
       icon: L.divIcon({
-        className: 'label',
+        className: 'center',
         html: feature.properties.name,
         iconSize: [100, 40]
       })
-    }).addTo(map);
+    }
+    ).addTo(map);
   }
 });
 
@@ -96,32 +170,120 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [-40, -30, -20, -10, 10, 20, 30, 40],
+        grades = [-40, -30, -20, -10, -0.1, 10, 20, 30],
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
             '<i style="background:' + getColor(grades[i] + 1) +   '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            grades[i] + (grades[i + 1] ? '%&ndash;' + grades[i + 1] + '% <br>' : '%+');
     }
-
     return div;
 };
 
 legend.addTo(map);
 
     </script>
-    <div class = "container", id = 'l'>
-      <h1>Weapons Crimes per Precinct</h1>
-      <div id = "lines"></div>
   </div>
-  <div class = "container", id ="p">
-    <h2>Share of Total Weapons Crimes</h2>
-    <div id = "pie"></div>
+  <div id ="p" class="bigdiv">
+    <h2>Change in Share of Total Weapons Crimes</h2>
+    <figure style="float:right; width: 70%">
+      <div id = "after"></div>
+      <figcaption style="color:gray; text-align: center;">Percentage Weapon Crimes per Precinct</figcaption>
+    </figure>
+    <p>In the year after implementation, precincts
+      8 and 9 continued to make up 34 percent of total weapons crimes. This rate is disproportionate with their share of the population. 
+      Between the two precincts, they account for less than 20% of the city's population per the <a href="https://www.mlive.com/news
+      /2016/02/where_are_detroits_most_danger_1.html">2010 Census</a>. The city's issue with weapons crime has gone unsolved even with 
+      the addition of surveillance technology including but <a href="https://www.clickondetroit.com/news/2020/06/24/detroit-police-
+      challenged-over-face-recognition-flaws-bias/">not exclusive</a> to ShotSpotter. While the Detroit Police Department hoped 
+      that the use of this technology, and the resultant data, would justify further surveillance methods these hopes seem to have dissipated
+      when trying to convince the public of its accuracy and efficacy.
+    </p>
   </div>   
+  <div id = "prologue" class="bigdiv">
+    <h1>Data vs Demagoguery</h1>
+    The debate over whether to approve the contract raged on through the summer, with the vote being <a href="https://www.detroitnews.com/
+    story/news/local/detroit-city/2022/10/04/detroit-city-council-delays-vote-on-7-million-shotspotter-expansion/69538799007/">delayed</a> 
+    multiple times. While <a href="https://www.bridgedetroit.com/will-shotspotter-expand-in-detroit-council-delays-vote/">many</a> 
+    public commenters were in opposition to the approval, the majority of city council remained supportive. The supporters on the council 
+    claimed that any measure to reduce weapons crimes and save lives was worth the cost. A recent <a href="https://www.pbs.org/newshour/
+    nation/man-arrested-in-series-of-random-fatal-shootings-in-detroit-police-say">mass shooting</a> in Detroit, while the vote was
+    still being debated, fueled the rhetoric used by supporters on the council and DPD. The delays persisted as they 
+    sought implementation methods that would be more palatable to their constituency. 
+    On October 11, 2022, Detroit City Council voted 5-4 to approve the expansion after having already voted to extend the time of its
+    current deployment. In all, about $9 million were committed to the use of audio surveillance in Detroit neighborhoods. This
+    was, of course, met with significant backlash from local actvist groups. One critique was the city's inaction in stemming 
+    police-induced gun violence. After several high-profile police <a href="https://www.freep.com/story/news/local/michigan/detroit/
+    2022/11/01/porter-burks-shot-detroit-police-lawsuit/69609280007/">shootings</a>, residents demanded the same fervor in protecting 
+    the city's most vulnerable. 
+
+    <br>The latest move to stem the use of tech surveillance has been a <a href="https://www.freep.com/story/news/local/michigan/detroit/
+    2022/11/30/detroit-shotspotter-expansion-violated-ordinance-lawsuit-claims/69688854007/">lawsuit</a> by local nonprofit law firms to void the current approved
+    contracts. The hope in this matter is that the public will be given another chance to provide input on if and how this technology will 
+    be handled. 
+    <p></p>
+  </div>
+
+  <div id = "process", class="bigdiv">
+    <h1>*Process*</h1>
+    <p>
+      The city of Detroit and crime are a too common association in the American psyche, currently.
+      In spite of the many quality attributes of the city, it seems that the image of Detroit as a city rife 
+      with crime keeps potential visitors and residents at bay. Many people seem to have an idea of what to do about this 
+      supposed crime problem, many of these solutions are based in using law enforcement as a deterrent. I am always skeptical 
+      of these approaches since the intended deterrent factor commonly carries high financial and social costs. Furthermore, 
+      the efficacy of such solutions are only scrutinized with much delay, if at all. 
+    </p>
+    <p>
+      <br>Initially, I was interested in doing an analysis of the various environmental factors that would be correlated with certain crimes
+      in Detroit. However, I could not settle on a clear subset of crimes to match with another set of enviromental factors and vice verse.
+      I came back to the question of what solutions have been suggested and what merit they have.The proposal of further deploying ShotSpotter 
+      earlier this year was one such supposed solutions that I believed warranted the use of all available data to effectively evaluate 
+      against the previously stated costs. 
+    </p>
+
+      <br>The only data readily available on crime in Detroit is what is available on the Detroit <a href="https://data.detroitmi.gov/
+      datasets/detroitmi::rms-crime-incidents/explore?location=42.352949%2C-83.099050%2C10.73">Open Data Portal</a>. Unfortunately, all the
+      relevant data that are available there are logged crime incidents and 911 calls from the previous 30 days. This makes it difficult to get a 
+      total image of how often gun crimes are sighted and reported. Since I cannot join the logged crime incidents to an equivalent 911 log, 
+      a more robust dataset of reported gun crimes is not possible. To analyze the instances of gun crimes, there is also difficulty 
+      in distilling these figures from the available logged incidents data. The DPD categorizes all weapons crimes under 
+      the same codes. Thus, one must make the large assumption that gun crimes are equally distributed among all precincts within their instances
+      of gun crimes. Nevertheless, the data was very complete and had the necessary features to match it to the areas required and across time. 
+    </p>
+    <p>
+    <br>One disclaimer to add is that I was involved in the advocacy against ShotSpotter during the summer through my current employer. 
+        There, I provided some support in processing data and doing some light visualizations. That work was very rudimentary, however, 
+        and felt like a wild goose chase given the DPD's refusal to cooperate in sharing their data and code for review by outside parties. 
+    </p>
+    <p>
+    <br>Similar to the work I did over the summer, I chose to visualize the trends about the time of implementation as a starting point. 
+    I believed this is important because it allows the reader to quickly identify significant outliers, if any exist at all. While the generally large 
+    spikes and drops of precincts 8 and 9 stick out, the similar drops through the year of implementation also show ambiguity in their distinction from 
+    others during that time period. 
+    </p>
+    <p>
+    <br> From there, I believed comparing the percentage drops between periods was the next natural step. If an area already had a large 
+    base amount of weapons crimes, then a large nominal drop is not necessarily impressive or significant. Thus, I decided to reduce the data
+    to two periods, the year before and after March 2021, when ShotSpotter was first deployed. A choropleth map, I believe is very intuitive 
+    in comparing a single metric between different areas. This is especially true if you use the correct color palette. It is my hope that the 
+    colors chosen here do impart some intuition on where the eye should be drawn to in order to make a quick conclusion. Here I did have some 
+    issues in creating a diverging choropleth map since iterating over the different thresholds to create the legend created some unintended results. 
+    Thus, I chose the values about 0 that are in the current legend. 
+    </p>
+    <p>
+    <br>Lastly, I chose a simple pie chart to drive home to point that these precincts still provide a problem to be solved that huge commitment
+    of city resources and work-hours has not tackled. Here, I also had an issue in using similar code to create a 'before' pie chart to highlight 
+    the inefficacy in altering the share of weapons crimes held in these precincts. Here the problem was that the code of the 'after' pie chart
+    would alter where the svg of the 'before' pie chart would be appended. This made designing this section difficult to make presentable.
+    In the end I decided to leave it off as the story could still be told without it, albeit with a lesser impact. 
+    </p>
+  </div>
+  
 </body>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="lines.js"></script>
-<script src="pie.js"></script>
+<script src="pie_after.js"></script>
 </html>

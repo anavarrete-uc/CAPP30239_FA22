@@ -1,3 +1,4 @@
+// Code based on PieChart Observable.com demo
 function PieChart(data, {
     name = ([x]) => x,  // given d in data, returns the (ordinal) label
     value = ([, y]) => y, // given d in data, returns the (quantitative) value
@@ -46,14 +47,14 @@ function PieChart(data, {
     const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
     const arcLabel = d3.arc().innerRadius(labelRadius).outerRadius(labelRadius);
     
-    const svg1 = d3.select("#before")
+    const svg2 = d3.select("#after")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
         .attr("viewBox", [-width / 2, -height / 2, width, height])
-        .attr("style", "max-width: 100%; height: auto; height: intrinsic; float:left;");
+        .attr("style", "max-width: 100%; height: auto; height: intrinsic; float:right;");
   
-    svg1.append("g")
+    svg2.append("g")
         .attr("stroke", stroke)
         .attr("stroke-width", strokeWidth)
         .attr("stroke-linejoin", strokeLinejoin)
@@ -65,7 +66,7 @@ function PieChart(data, {
       .append("title")
         .text(d => title(d.data));
   
-    svg1.append("g")
+    svg2.append("g")
         .attr("font-family", "sans-serif")
         .attr("font-size", 10)
         .attr("text-anchor", "middle")
@@ -83,23 +84,29 @@ function PieChart(data, {
         .attr("y", (_, i) => `${i * 1.1}em`)
         .attr("font-weight", (_, i) => i ? null : "bold")
         .text(d => d);
-      svg1
-        .append("text")
+
+    svg2.append("text")
         .attr("class", "title")
         .attr("x", width /4) //positions it at the middle of the width
         .attr("y", height/10) //positions it from the top by the margin top
         .attr("font-family", "sans-serif")
         .attr("fill", "grey")
         .attr("text-anchor", "middle")
-        .text("Before");
+        .text("After");
   }
 
   d3.csv('data/weapon_crimes_periods_byPCT.csv').then((data) => {      
+    data = data.filter(function(d) {return d.period === "Post"})
     console.log(data)
-    data = data.filter(function(d) {return d.period === "Pre"})
+    var counts_total = 0
+    for (d in data){
+      console.log(d)
+        counts_total += parseInt(data[d].counts)
+      }
+    console.log(counts_total)
     PieChart(data, {
         name: d => d.precinct,
-        value: d => d.counts,
+        value: d => (d.counts / counts_total * 100).toFixed(2) ,
         height: 200
       })
     

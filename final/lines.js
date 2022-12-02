@@ -157,7 +157,7 @@ function LineChart(data, {
         x: d => d.year_month,
         y: d => d.counts,
         z: d => d.precinct,
-        yLabel: "Weapons Crimes",
+        yLabel: "Weapons Crimes Per Precinct",
         height: 500,
         color: "steelblue"
       })
